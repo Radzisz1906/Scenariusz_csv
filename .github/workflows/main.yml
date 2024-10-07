@@ -22,7 +22,8 @@ jobs:
         run: pip install pyinstaller
 
       - name: Clean previous builds
-        run: rm -rf build dist __pycache__
+        run: Remove-Item -Recurse -Force build, dist, __pycache__
+        shell: pwsh
 
       - name: Build with PyInstaller
         run: pyinstaller --onefile --windowed script_to_csv.py
@@ -46,6 +47,6 @@ jobs:
         uses: actions/upload-release-asset@v1
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./dist/script_to_csv.exe 
+          asset_path: ./dist/script_to_csv.exe  # Sprawdź rzeczywistą nazwę pliku
           asset_name: script_to_csv.exe
           asset_content_type: application/octet-stream
