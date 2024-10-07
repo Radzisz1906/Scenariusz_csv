@@ -22,7 +22,10 @@ jobs:
         run: pip install pyinstaller
 
       - name: Clean previous builds
-        run: Remove-Item -Recurse -Force build, dist, __pycache__
+        run: |
+          if (Test-Path build) { Remove-Item -Recurse -Force build }
+          if (Test-Path dist) { Remove-Item -Recurse -Force dist }
+          if (Test-Path __pycache__) { Remove-Item -Recurse -Force __pycache__ }
         shell: pwsh
 
       - name: Build with PyInstaller
